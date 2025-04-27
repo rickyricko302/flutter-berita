@@ -5,7 +5,7 @@ class LocalStorageService {
 
   LocalStorageService({required FlutterSecureStorage flutterSecureStorage})
     : _flutterSecureStorage = flutterSecureStorage;
-  Future<void> write({key, value}) async {
+  Future<void> write({required String key, required String value}) async {
     await _flutterSecureStorage.write(key: key, value: value);
   }
 

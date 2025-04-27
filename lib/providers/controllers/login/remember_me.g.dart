@@ -6,7 +6,7 @@ part of 'remember_me.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$rememberMeHash() => r'd98cb9316a18abfd798db8c0370c47a9a2e7b30d';
+String _$rememberMeHash() => r'b7db0782c138a8fcfa25da1073cc33e6ec448909';
 
 /// See also [RememberMe].
 @ProviderFor(RememberMe)

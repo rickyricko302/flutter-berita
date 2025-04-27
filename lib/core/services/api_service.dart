@@ -11,7 +11,7 @@ class ApiService {
   }
 
   Future<Map<String, String>> headerWithToken() async {
-    final String token = await localStorageService.read(key: 'token');
+    final String? token = await localStorageService.read(key: 'accessToken');
     return {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',

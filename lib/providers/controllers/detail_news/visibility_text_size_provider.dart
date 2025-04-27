@@ -1,18 +1,15 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-part 'remember_me.g.dart';
+
+part 'visibility_text_size_provider.g.dart';
 
 @riverpod
-class RememberMe extends _$RememberMe {
+class VisibilityTextSizeProvider extends _$VisibilityTextSizeProvider {
   @override
   bool build() {
     return false;
   }
 
-  void reset() {
-    state = false;
-  }
-
-  void toggle() {
+  void toggleVisibility() {
     state = !state;
   }
 }

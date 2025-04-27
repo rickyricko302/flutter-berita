@@ -9,6 +9,12 @@ class Helper {
     ).push(MaterialPageRoute(builder: (builder) => page));
   }
 
+  static replacePage({required BuildContext context, required Widget page}) {
+    return Navigator.of(
+      context,
+    ).pushReplacement(MaterialPageRoute(builder: (builder) => page));
+  }
+
   static backFirstPage({required BuildContext context}) {
     Navigator.of(context).popUntil((route) => route.isFirst);
   }
@@ -22,5 +28,9 @@ class Helper {
       textDirection: TextDirection.ltr,
     )..layout();
     return textPainter.width;
+  }
+
+  static readAssetImages({required String fileName}) {
+    return 'assets/images/$fileName';
   }
 }

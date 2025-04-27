@@ -6,7 +6,7 @@ class AuthLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(toolbarHeight: 0, forceMaterialTransparency: true),
+      appBar: AppBar(toolbarHeight: 0),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(

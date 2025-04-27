@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:udb_news/core/models/profile_model.dart';
 import 'package:udb_news/providers/controllers/profile/profile_controller.dart';
 import 'package:udb_news/views/shared_widgets/alert_error.dart';
 import 'package:udb_news/views/shared_widgets/button.dart';
 import 'package:udb_news/views/shared_widgets/custom_app_bar.dart';
 import 'package:udb_news/views/shared_widgets/text_field.dart';
 
-class HomeScreen extends ConsumerStatefulWidget {
-  const HomeScreen({super.key, required this.nama});
+class ProfileScreen extends ConsumerStatefulWidget {
+  const ProfileScreen({super.key, required this.nama});
   final String nama;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ProfileScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<HomeScreen> {
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((duration) {
-      ref.read(profileControllerProvider.notifier).getProfile();
+      final profileNotifier = ref.read(profileControllerProvider.notifier);
+      profileNotifier.getProfile();
     });
   }
 
@@ -28,18 +30,30 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final profileController = ref.watch(profileControllerProvider);
     final profileNotifier = ref.read(profileControllerProvider.notifier);
     return Scaffold(
-      appBar: CustomAppbar(title: 'Home Screen', leading: SizedBox()),
+      appBar: CustomAppbar(title: 'Profil Saya', leading: SizedBox()),
       body: SafeArea(
-        child: profileController.when(
-          data: (data) => _buildOnData(context, profileNotifier, data),
-          error: (error, stackTrace) => _buildOnError(error),
-          loading: () => _buildOnLoading(),
+        child: AnimatedSwitcher(
+          duration: Duration(milliseconds: 500),
+          child: profileController.when(
+            data: (data) {
+              if (data != null) {
+                return _buildOnData(context, profileNotifier, data);
+              }
+              return _buildOnLoading();
+            },
+            error: (error, stackTrace) => _buildOnError(error),
+            loading: () => _buildOnLoading(),
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildOnData(context, ProfileController profileController, data) {
+  Widget _buildOnData(
+    context,
+    ProfileController profileController,
+    ProfileModel data,
+  ) {
     return RefreshIndicator(
       onRefresh: () async {
         await profileController.getProfile();
@@ -62,12 +76,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Ricky Verdiyanto',
+                      "${data.firstName} ${data.maidenName} ${data.lastName}",
                       style: Theme.of(context).textTheme.headlineSmall
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      '20 Tahun',
+                      '${data.age} Tahun',
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -78,38 +92,42 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               const SizedBox(height: 30),
               Text('Username', style: TextStyle(color: Colors.grey)),
               MyTextField(
-                textEditingController: TextEditingController(text: "ricky"),
+                enabled: false,
+                textEditingController: TextEditingController(
+                  text: data.username,
+                ),
                 prefix: Icon(Icons.person_outline, color: Colors.purple),
               ),
               const SizedBox(height: 20),
               Text('Email', style: TextStyle(color: Colors.grey)),
               MyTextField(
-                textEditingController: TextEditingController(
-                  text: "verdiyantorky123@gmail.com",
-                ),
+                enabled: false,
+                textEditingController: TextEditingController(text: data.email),
                 prefix: Icon(Icons.mail_outline, color: Colors.purple),
               ),
               const SizedBox(height: 20),
               Text('No Telepon', style: TextStyle(color: Colors.grey)),
               MyTextField(
-                textEditingController: TextEditingController(
-                  text: "6289503932319",
-                ),
+                enabled: false,
+                textEditingController: TextEditingController(text: data.phone),
                 prefix: Icon(Icons.phone_outlined, color: Colors.purple),
               ),
               const SizedBox(height: 20),
               Text('Tanggal Lahir', style: TextStyle(color: Colors.grey)),
               MyTextField(
+                enabled: false,
                 textEditingController: TextEditingController(
-                  text: "19 Desember 2003",
+                  text: data.birthDate,
                 ),
                 prefix: Icon(Icons.date_range_outlined, color: Colors.purple),
               ),
               const SizedBox(height: 20),
               Text('Alamat', style: TextStyle(color: Colors.grey)),
               MyTextField(
+                enabled: false,
                 textEditingController: TextEditingController(
-                  text: "Bonangan RT 06/07 Baturan, Colomadu, Karanganyar",
+                  text:
+                      "${data.address?.address}, ${data.address?.city}, ${data.address?.country}",
                 ),
                 maxLine: 3,
               ),
@@ -124,6 +142,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   text: 'Keluar',
                 ),
               ),
+              const SizedBox(height: 42),
             ],
           ),
         ),
@@ -132,7 +151,20 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Widget _buildOnError(error) {
-    return Center(child: MyAlertError(message: error.toString()));
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          MyAlertError(message: error.toString()),
+          IconButton(
+            onPressed: () {
+              ref.read(profileControllerProvider.notifier).getProfile();
+            },
+            icon: Icon(Icons.refresh),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildOnLoading() {

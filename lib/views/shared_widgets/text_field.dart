@@ -7,15 +7,18 @@ class MyTextField extends StatelessWidget {
     this.hint,
     this.prefix,
     this.maxLine,
+    this.enabled,
   });
   final TextEditingController textEditingController;
   final String? hint;
   final Widget? prefix;
   final int? maxLine;
+  final bool? enabled;
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: textEditingController,
+      enabled: enabled,
       maxLines: maxLine,
       decoration: InputDecoration(
         filled: true,

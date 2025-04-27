@@ -22,6 +22,7 @@ class ProfileController extends _$ProfileController {
       final ProfileModel data = await profileRepositoryImpl.getProfile();
       state = AsyncData(data);
     } catch (e) {
+      debugPrint(e.toString());
       state = AsyncError(e.toString(), StackTrace.current);
     }
   }
