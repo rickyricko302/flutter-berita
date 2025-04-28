@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:udb_news/core/utils/helper.dart';
 import 'package:udb_news/providers/controllers/dashboards/dashboard_controller_provider.dart';
+import 'package:udb_news/views/screens/about_udb.dart';
 import 'package:udb_news/views/screens/home/home_screen.dart';
 import 'package:udb_news/views/screens/profile_screen.dart';
 import 'package:udb_news/views/shared_widgets/dashboard_bottom_nav.dart';
@@ -45,7 +46,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             borderRadius: BorderRadius.circular(100),
           ),
           backgroundColor: Colors.white,
-          onPressed: () {},
+          onPressed: () {
+            Helper.pushPage(context: context, page: AboutUDBScreen());
+          },
           child: Image.asset(
             Helper.readAssetImages(fileName: 'udb-logo.png'),
             width: 42,

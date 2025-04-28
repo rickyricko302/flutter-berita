@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:udb_news/core/models/news_model.dart';
 part 'news_services_provider.g.dart';
