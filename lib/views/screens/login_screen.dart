@@ -4,7 +4,7 @@ import 'package:udb_news/core/models/user_model.dart';
 import 'package:udb_news/providers/controllers/login/login_controller.dart';
 import 'package:udb_news/providers/controllers/login/remember_me.dart';
 import 'package:udb_news/views/layouts/auth_layout.dart';
-import 'package:udb_news/views/screens/dashboard.dart';
+import 'package:udb_news/views/screens/dashboard_screen.dart';
 import 'package:udb_news/views/screens/register_screen.dart';
 import 'package:udb_news/views/screens/reset_password_screen.dart';
 import 'package:udb_news/views/shared_widgets/alert_error.dart';
