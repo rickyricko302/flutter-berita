@@ -43,7 +43,7 @@ class _CustomAppbarState extends State<CustomAppbar> {
           Text(
             widget.title,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Colors.blue.shade900,
+              color: Theme.of(context).secondaryHeaderColor,
               fontWeight: FontWeight.bold,
             ),
           ),

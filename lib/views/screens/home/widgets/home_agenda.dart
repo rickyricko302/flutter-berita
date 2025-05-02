@@ -13,7 +13,7 @@ class HomeAgenda extends StatelessWidget {
           Text(
             'Agenda Penting Terdekat',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Colors.blue.shade900,
+              color: Theme.of(context).secondaryHeaderColor,
               fontWeight: FontWeight.bold,
             ),
           ),

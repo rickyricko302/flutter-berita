@@ -19,7 +19,7 @@ class OtherNews extends ConsumerWidget {
         Text(
           'Berita Lainnya',
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            color: Colors.blue.shade900,
+            color: Theme.of(context).secondaryHeaderColor,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -32,7 +32,7 @@ class OtherNews extends ConsumerWidget {
           itemBuilder: (context, index) {
             final NewsModel data = otherNews[index];
             return Material(
-              color: Colors.white,
+              color: Theme.of(context).cardColor,
               borderRadius: BorderRadius.circular(12),
               child: InkWell(
                 onTap: () {
@@ -45,6 +45,9 @@ class OtherNews extends ConsumerWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: .1),
+                    ),
                   ),
                   child: Row(
                     spacing: 12,

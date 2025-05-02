@@ -26,7 +26,7 @@ class AboutUDBScreen extends StatelessWidget {
               Text(
                 'VISI',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Colors.blue.shade900,
+                  color: Theme.of(context).secondaryHeaderColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -40,7 +40,7 @@ class AboutUDBScreen extends StatelessWidget {
               Text(
                 'MISI',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Colors.blue.shade900,
+                  color: Theme.of(context).secondaryHeaderColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -54,7 +54,7 @@ class AboutUDBScreen extends StatelessWidget {
               Text(
                 'TUJUAN',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Colors.blue.shade900,
+                  color: Theme.of(context).secondaryHeaderColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),

@@ -20,7 +20,7 @@ class HomeListNews extends ConsumerWidget {
           Text(
             'Berita Terbaru Universitas',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: Colors.blue.shade900,
+              color: Theme.of(context).secondaryHeaderColor,
 
               fontWeight: FontWeight.bold,
             ),
@@ -34,7 +34,7 @@ class HomeListNews extends ConsumerWidget {
             itemBuilder: (context, index) {
               final NewsModel data = newsProvider[index];
               return Material(
-                color: Colors.white,
+                color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(12),
                 child: InkWell(
                   onTap: () {
@@ -47,6 +47,9 @@ class HomeListNews extends ConsumerWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha: .1),
+                      ),
                     ),
                     child: Row(
                       spacing: 12,
