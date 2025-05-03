@@ -27,3 +27,6 @@ Dibuat untuk tugas pemrogaman mobile flutter
 | Detail Berita Scroll | Tentang Kami | Profil |
 |:--------------------:|:------------:|:------:|
 | ![Detail Berita Scroll](https://github.com/rickyricko302/flutter-berita/blob/main/screenshoots/detail-news-scrolled.png) | ![Tentang Kami](https://github.com/rickyricko302/flutter-berita/blob/main/screenshoots/about-udb.png)| ![Login](https://github.com/rickyricko302/flutter-berita/blob/main/screenshoots/profile.png) |
+
+## Screen Record (Toggle show hide password in login and dark mode in profile)
+<img src="https://github.com/rickyricko302/flutter-berita/blob/main/screenshoots/screen-record.gif" height="700"/>
