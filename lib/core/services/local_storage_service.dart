@@ -12,4 +12,8 @@ class LocalStorageService {
   Future<dynamic> read({key}) async {
     return await _flutterSecureStorage.read(key: key);
   }
+
+  Future<void> remove({key}) async {
+    return await _flutterSecureStorage.delete(key: key);
+  }
 }

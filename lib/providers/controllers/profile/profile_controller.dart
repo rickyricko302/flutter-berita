@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:udb_news/core/models/profile_model.dart';
 import 'package:udb_news/core/repositories/profile_repository.dart';
 import 'package:udb_news/providers/core/repositories/profile_repository_provider.dart';
+import 'package:udb_news/providers/core/services/local_storage_provider.dart';
 
 import '../../../core/utils/helper.dart';
 import '../../../views/screens/login_screen.dart';
@@ -28,6 +29,7 @@ class ProfileController extends _$ProfileController {
   }
 
   void logout({required BuildContext context}) {
+    ref.read(localStorageProvider).remove(key: "accessToken");
     Helper.backFirstPage(context: context);
     Helper.pushPage(context: context, page: LoginScreen());
   }
