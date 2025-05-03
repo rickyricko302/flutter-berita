@@ -43,4 +43,9 @@ class AuthService {
 
     return UserModel.fromJson(json);
   }
+
+  Future<bool> isUserLogged() async {
+    final token = await localStorageService.read(key: "accessToken");
+    return token != null;
+  }
 }

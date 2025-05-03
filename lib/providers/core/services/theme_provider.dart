@@ -26,6 +26,7 @@ class ThemeToggle extends _$ThemeToggle {
 
   Future<void> _saveChange() async {
     final localStorage = ref.read(localStorageProvider);
+    print(_isDarkMode().toString());
     await localStorage.write(
       key: 'isDarkMode',
       value: _isDarkMode().toString(),
@@ -34,7 +35,10 @@ class ThemeToggle extends _$ThemeToggle {
 
   Future<ThemeMode> _readTheme() async {
     final localStorage = ref.read(localStorageProvider);
-    final bool? isDark = await localStorage.read(key: 'isDarkMode');
+    final bool? isDark = bool.tryParse(
+      await localStorage.read(key: 'isDarkMode'),
+    );
+    print(isDark);
     if (isDark == null) {
       return ThemeMode.light;
     } else {
