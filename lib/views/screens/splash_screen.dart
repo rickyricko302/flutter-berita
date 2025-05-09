@@ -32,6 +32,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     Future.delayed(Duration(seconds: 5), () async {
       final bool isLogged = await ref.read(authServiceProvider).isUserLogged();
       Helper.replacePage(
+        // ignore: use_build_context_synchronously
         context: context,
         page: isLogged ? DashboardScreen() : LoginScreen(),
       );
