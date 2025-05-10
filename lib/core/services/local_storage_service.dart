@@ -1,19 +1,18 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get_storage/get_storage.dart';
 
 class LocalStorageService {
-  final FlutterSecureStorage _flutterSecureStorage;
+  final GetStorage _box;
 
-  LocalStorageService({required FlutterSecureStorage flutterSecureStorage})
-    : _flutterSecureStorage = flutterSecureStorage;
+  LocalStorageService({required GetStorage box}) : _box = box;
   Future<void> write({required String key, required String value}) async {
-    await _flutterSecureStorage.write(key: key, value: value);
+    await _box.write(key, value);
   }
 
   Future<dynamic> read({key}) async {
-    return await _flutterSecureStorage.read(key: key);
+    return await _box.read(key);
   }
 
   Future<void> remove({key}) async {
-    return await _flutterSecureStorage.delete(key: key);
+    return await _box.remove(key);
   }
 }
