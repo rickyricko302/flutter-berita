@@ -47,6 +47,10 @@ TextStyle? titleLarge({required BuildContext context}) {
   return Theme.of(context).textTheme.titleLarge;
 }
 
+TextStyle? bodySmall({required BuildContext context}) {
+  return Theme.of(context).textTheme.bodySmall;
+}
+
 showSnackbarError(title, message) {
   Get.snackbar(
     title,
