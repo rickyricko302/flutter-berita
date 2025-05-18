@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
-import 'package:gap/gap.dart';
 
 import 'package:get/get.dart';
 import 'package:info_a1/app/modules/home/views/widgets/categories.dart';

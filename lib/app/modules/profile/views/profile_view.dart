@@ -4,7 +4,6 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:info_a1/shared_widgets/button_primary.dart';
-import 'package:info_a1/shared_widgets/button_red.dart';
 import 'package:info_a1/shared_widgets/text_field.dart';
 
 import '../../../../core/util.dart';
