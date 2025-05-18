@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:info_a1/app/modules/home/views/home_view.dart';
+import 'package:info_a1/app/modules/profile/views/profile_view.dart';
 import 'package:info_a1/core/util.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
@@ -16,7 +17,7 @@ class DashboardView extends GetView<DashboardController> {
       body: PageView(
         controller: controller.pageController,
         physics: NeverScrollableScrollPhysics(),
-        children: [HomeView(), Text("Bookmark"), Text("Profile")],
+        children: [HomeView(), Text("Bookmark"), ProfileView()],
       ),
       bottomNavigationBar: Obx(
         () => SalomonBottomBar(

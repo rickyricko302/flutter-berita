@@ -51,6 +51,14 @@ TextStyle? bodySmall({required BuildContext context}) {
   return Theme.of(context).textTheme.bodySmall;
 }
 
+TextStyle? bodyNormal({required BuildContext context}) {
+  return Theme.of(context).textTheme.bodyLarge;
+}
+
+TextStyle? labelLarge({required BuildContext context}) {
+  return Theme.of(context).textTheme.labelLarge;
+}
+
 showSnackbarError(title, message) {
   Get.snackbar(
     title,

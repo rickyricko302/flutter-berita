@@ -31,8 +31,4 @@ class HomeController extends GetxController {
   void changeCategoryActive({required int index}) {
     _categoryActive.value = index;
   }
-
-  Future<void> logout() async {
-    await authServices.logout();
-  }
 }

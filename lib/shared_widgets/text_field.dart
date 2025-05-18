@@ -6,10 +6,12 @@ class MyTextField extends StatelessWidget {
     required this.controller,
     required this.label,
     this.keyboardType = TextInputType.text,
+    this.customBackground,
   });
   final TextEditingController controller;
   final String label;
   final TextInputType keyboardType;
+  final Color? customBackground;
   @override
   Widget build(BuildContext context) {
     return TextField(
@@ -19,7 +21,7 @@ class MyTextField extends StatelessWidget {
         labelText: label,
         contentPadding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         filled: true,
-        fillColor: Colors.grey.withValues(alpha: 0.1),
+        fillColor: customBackground ?? Colors.grey.withValues(alpha: 0.1),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
       ),
     );

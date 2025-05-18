@@ -65,7 +65,7 @@ class LoginController extends GetxController {
       }
       log(authResponse.toString());
     } catch (e) {
-      Get.log('cath login ' + e.toString(), isError: true);
+      showSnackbarError("Error", e.toString());
     }
     _isGoogleLoading.value = false;
   }

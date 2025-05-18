@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:info_a1/app/data/model/update_profile_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../model/profile_model.dart';
@@ -11,7 +12,7 @@ class RemoteDatabaseService {
     : _supabaseClient = supabaseClient;
 
   Future<void> insertProfiles({required ProfileModel model}) async {
-    return await _supabaseClient.from("profiles").insert(model.toJson());
+    await _supabaseClient.from("profiles").insert(model.toJson());
   }
 
   Future<ProfileModel?> getProfile({required String userId}) async {
@@ -26,5 +27,15 @@ class RemoteDatabaseService {
       return ProfileModel.fromJson(profile);
     }
     return null;
+  }
+
+  Future<void> updateProfile({
+    required UpdateProfileModel profileModel,
+    required String userId,
+  }) async {
+    await _supabaseClient
+        .from('profiles')
+        .update(profileModel.toJson())
+        .eq('user_id', userId);
   }
 }
