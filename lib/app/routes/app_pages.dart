@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/detailNews/bindings/detail_news_binding.dart';
+import '../modules/detailNews/views/detail_news_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -50,6 +52,11 @@ class AppPages {
       name: _Paths.PROFILE,
       page: () => const ProfileView(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_NEWS,
+      page: () => const DetailNewsView(),
+      binding: DetailNewsBinding(),
     ),
   ];
 }

@@ -14,7 +14,12 @@ class CategoriesWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Gap(30),
-        Text("Kategori Berita", style: titleLarge(context: context)),
+        Text(
+          "Kategori Berita",
+          style: titleLarge(
+            context: context,
+          )?.copyWith(color: primaryColor(context: context)),
+        ),
         Gap(4),
         SizedBox(
           height: 40,

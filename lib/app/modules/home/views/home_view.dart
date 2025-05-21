@@ -17,19 +17,36 @@ class HomeView extends GetView<HomeController> {
         title: Text('Beranda', style: TextStyle(color: Colors.white)),
         centerTitle: true,
         backgroundColor: primaryColor(context: context),
-      ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              HeadLineWidget(),
-              CategoriesWidget(controller: controller),
-              ListNews(),
-            ],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
           ),
+        ),
+      ),
+      body: Obx(
+        () => AnimatedSwitcher(
+          duration: Duration(milliseconds: 500),
+          child:
+              controller.isLoading
+                  ? Center(child: CircularProgressIndicator())
+                  : SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          HeadLineWidget(headlineNews: controller.headlineNews),
+                          CategoriesWidget(controller: controller),
+                          ListNews(
+                            isLoading: controller.isLoadingBottom,
+                            listNews: controller.listCategoryNews,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
         ),
       ),
     );

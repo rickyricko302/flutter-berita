@@ -76,3 +76,19 @@ showSnackbarSuccess(title, message) {
     colorText: Colors.white,
   );
 }
+
+String timeAgo(String isoString) {
+  DateTime inputTime = DateTime.parse(isoString).toLocal();
+  DateTime now = DateTime.now();
+  Duration difference = now.difference(inputTime);
+
+  if (difference.inMinutes < 1) {
+    return "Baru saja";
+  } else if (difference.inMinutes < 60) {
+    return "${difference.inMinutes} menit yang lalu";
+  } else if (difference.inHours < 24) {
+    return "${difference.inHours} jam yang lalu";
+  } else {
+    return "${difference.inDays} hari yang lalu";
+  }
+}

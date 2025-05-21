@@ -16,7 +16,7 @@ class DashboardController extends GetxController {
 
   @override
   void onInit() {
-    Get.put(HomeController(authServices: Get.find()));
+    Get.put(HomeController(authServices: Get.find(), newsServices: Get.find()));
     Get.put(
       ProfileController(authServices: Get.find(), profileServices: Get.find()),
     );
