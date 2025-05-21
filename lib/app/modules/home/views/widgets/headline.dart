@@ -32,9 +32,7 @@ class HeadLineWidget extends StatelessWidget {
                   onTap: () {
                     Get.toNamed(
                       Routes.DETAIL_NEWS,
-                      parameters: {
-                        'url_berita': headlineNews?.data?[index].link ?? '',
-                      },
+                      arguments: {'news_model': headlineNews?.data?[index]},
                     );
                   },
                   child: Container(

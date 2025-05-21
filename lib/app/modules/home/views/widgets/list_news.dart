@@ -34,9 +34,7 @@ class ListNews extends StatelessWidget {
                       onTap: () {
                         Get.toNamed(
                           Routes.DETAIL_NEWS,
-                          parameters: {
-                            'url_berita': listNews?.data?[index].link ?? '',
-                          },
+                          arguments: {'news_model': listNews?.data?[index]},
                         );
                       },
                       borderRadius: BorderRadius.circular(12),

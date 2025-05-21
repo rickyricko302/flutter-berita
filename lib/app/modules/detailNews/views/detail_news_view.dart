@@ -38,7 +38,7 @@ class DetailNewsView extends GetView<DetailNewsController> {
             Expanded(
               child: InAppWebView(
                 initialUrlRequest: URLRequest(
-                  url: WebUri.uri(Uri.parse(controller.initUrl)),
+                  url: WebUri.uri(Uri.parse(controller.urlWebview)),
                 ),
                 initialSettings: InAppWebViewSettings(),
                 onWebViewCreated: (controllerWebview) {
@@ -88,14 +88,22 @@ class DetailNewsView extends GetView<DetailNewsController> {
                 controller.webViewController?.goForward();
               },
             ),
-            IconButton(
-              icon: HugeIcon(
-                icon: HugeIcons.strokeRoundedBookmarkAdd01,
-                color: primaryColor(context: context),
-              ),
-              onPressed: () {
-                controller.logicBookmark();
-              },
+            Obx(
+              () =>
+                  controller.isLoading
+                      ? CircularProgressIndicator()
+                      : IconButton(
+                        icon: HugeIcon(
+                          icon:
+                              controller.isSaved
+                                  ? HugeIcons.strokeRoundedBookmarkRemove01
+                                  : HugeIcons.strokeRoundedBookmarkAdd01,
+                          color: primaryColor(context: context),
+                        ),
+                        onPressed: () {
+                          controller.toggleSaveStatus();
+                        },
+                      ),
             ),
           ],
         ),
