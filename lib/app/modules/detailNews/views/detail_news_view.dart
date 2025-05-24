@@ -17,6 +17,12 @@ class DetailNewsView extends GetView<DetailNewsController> {
           "WebView Antara News",
           style: TextStyle(color: Colors.white),
         ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+        ),
         backgroundColor: primaryColor(context: context),
         leading: IconButton(
           onPressed: () => Get.back(),
@@ -58,7 +64,9 @@ class DetailNewsView extends GetView<DetailNewsController> {
                   controllerWebview,
                   navigationAction,
                 ) async {
-                  return NavigationActionPolicy.ALLOW;
+                  return await controller.ensureUrlIsSame(
+                    url: navigationAction.request.url.toString(),
+                  );
                 },
               ),
             ),
@@ -70,24 +78,6 @@ class DetailNewsView extends GetView<DetailNewsController> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            IconButton(
-              icon: HugeIcon(
-                icon: HugeIcons.strokeRoundedArrowLeft02,
-                color: primaryColor(context: context),
-              ),
-              onPressed: () {
-                controller.webViewController?.goBack();
-              },
-            ),
-            IconButton(
-              icon: HugeIcon(
-                icon: HugeIcons.strokeRoundedArrowRight02,
-                color: primaryColor(context: context),
-              ),
-              onPressed: () {
-                controller.webViewController?.goForward();
-              },
-            ),
             Obx(
               () =>
                   controller.isLoading

@@ -9,6 +9,7 @@ class ProfileBinding extends Bindings {
       () => ProfileController(
         authServices: Get.find(),
         profileServices: Get.find(),
+        pickImageService: Get.find(),
       ),
     );
   }

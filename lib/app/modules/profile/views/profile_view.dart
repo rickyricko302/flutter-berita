@@ -14,6 +14,7 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primaryColor(context: context),
       appBar: AppBar(
         title: Text('Profil', style: TextStyle(color: Colors.white)),
         centerTitle: true,
@@ -54,7 +55,9 @@ class ProfileView extends GetView<ProfileController> {
                                     style: IconButton.styleFrom(
                                       backgroundColor: Colors.white,
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      controller.uploadImage();
+                                    },
                                     icon: HugeIcon(
                                       icon: HugeIcons.strokeRoundedPencilEdit01,
                                       color: secondaryColor(context: context),
@@ -65,7 +68,8 @@ class ProfileView extends GetView<ProfileController> {
                             ),
                           ),
                         ),
-                        Padding(
+                        Container(
+                          color: Colors.white,
                           padding: const EdgeInsets.symmetric(
                             vertical: 30,
                             horizontal: 20,

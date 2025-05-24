@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:info_a1/app/modules/home/controllers/home_controller.dart';
 import 'package:info_a1/app/modules/profile/controllers/profile_controller.dart';
+import 'package:info_a1/app/modules/savedNews/controllers/saved_news_controller.dart';
 
 class DashboardController extends GetxController {
   final PageController pageController = PageController();
@@ -18,7 +19,14 @@ class DashboardController extends GetxController {
   void onInit() {
     Get.put(HomeController(authServices: Get.find(), newsServices: Get.find()));
     Get.put(
-      ProfileController(authServices: Get.find(), profileServices: Get.find()),
+      ProfileController(
+        authServices: Get.find(),
+        profileServices: Get.find(),
+        pickImageService: Get.find(),
+      ),
+    );
+    Get.put(
+      SavedNewsController(authServices: Get.find(), newsServices: Get.find()),
     );
     super.onInit();
   }

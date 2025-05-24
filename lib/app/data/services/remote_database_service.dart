@@ -41,6 +41,16 @@ class RemoteDatabaseService {
         .eq('user_id', userId);
   }
 
+  Future<void> updatePhotoPath({
+    required String userId,
+    required String path,
+  }) async {
+    await _supabaseClient
+        .from('profiles')
+        .update({'photo_path': path})
+        .eq('user_id', userId);
+  }
+
   // Insert saved news
   Future<void> insertSavedNews(AddSavedNewsModel news) async {
     try {

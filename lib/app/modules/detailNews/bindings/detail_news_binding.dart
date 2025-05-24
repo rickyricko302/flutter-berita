@@ -6,7 +6,7 @@ class DetailNewsBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<DetailNewsController>(
-      () => DetailNewsController(remoteDb: Get.find()),
+      () => DetailNewsController(newsServices: Get.find()),
     );
   }
 }
