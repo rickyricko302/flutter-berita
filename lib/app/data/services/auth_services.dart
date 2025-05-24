@@ -18,7 +18,12 @@ class AuthServices {
     required this.remoteDatabaseService,
   });
 
-  listenAuth({required VoidCallback goHome, required VoidCallback goLogin}) {
+  /// Listens for changes in the authentication state. When the user is signed in,
+  /// goHome is called. When the user is signed out, goLogin is called.
+  void listenAuth({
+    required VoidCallback goHome,
+    required VoidCallback goLogin,
+  }) {
     supabaseClient.auth.onAuthStateChange.listen((state) {
       Session? session = state.session;
       if (session != null) {
@@ -33,6 +38,16 @@ class AuthServices {
     });
   }
 
+  /// Signs in a user with the provided email and password.
+  ///
+  /// Returns [AuthResponse] with the user's data.
+  ///
+  /// Throws [AuthApiException] if the request fails.
+  ///
+  /// Requires the user to be registered.
+  ///
+  /// Example:
+  ///
   Future<AuthResponse> login({
     required String email,
     required String password,
@@ -43,6 +58,15 @@ class AuthServices {
     );
   }
 
+  /// Signs in a user with Google.
+
+  /// Returns [AuthResponse] with the user's data.
+
+  /// Throws [AuthApiException] if the request fails.
+
+  /// Requires the user to have a Google account.
+
+  ///
   Future<AuthResponse> googleSignIn() async {
     const webClientId =
         '337702781329-6n6ii59vgghj9gu8dcs0l1s29mffkm22.apps.googleusercontent.com';
@@ -71,6 +95,14 @@ class AuthServices {
     );
   }
 
+  /// Registers a user with the provided email and password.
+  ///
+  /// Returns [AuthResponse] with the user's data.
+  ///
+  /// Throws [AuthApiException] if the request fails.
+  ///
+  /// Requires the user not to be registered.
+  ///
   Future<AuthResponse> register({
     required String email,
     required String password,
@@ -78,14 +110,36 @@ class AuthServices {
     return await supabaseClient.auth.signUp(email: email, password: password);
   }
 
+  /// Inserts a profile into the profiles table.
+  ///
+  /// Throws [AuthApiException] if the request fails.
+  ///
+  /// Requires the user to be registered.
+  ///
   Future<void> insertProfiles({required ProfileModel model}) async {
     return await remoteDatabaseService.insertProfiles(model: model);
   }
 
+  /// Gets a profile from the profiles table.
+  ///
+  /// Throws [AuthApiException] if the request fails.
+  ///
+  /// Requires the user to be registered.
+  ///
+  /// Returns `null` if the user has no profile.
+  ///
   Future<ProfileModel?> getProfile({required String userId}) async {
     return await remoteDatabaseService.getProfile(userId: userId);
   }
 
+  /// Signs out the user.
+  ///
+  /// Throws [AuthApiException] if the request fails.
+  ///
+  /// Requires the user to be signed in.
+  ///
+  /// Returns a [Future] that resolves when the user is signed out.
+  ///
   Future<void> logout() async {
     await supabaseClient.auth.signOut();
   }

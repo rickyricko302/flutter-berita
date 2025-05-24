@@ -13,10 +13,12 @@ class RemoteDatabaseService {
   RemoteDatabaseService({required SupabaseClient supabaseClient})
     : _supabaseClient = supabaseClient;
 
+  // Update profiles
   Future<void> insertProfiles({required ProfileModel model}) async {
     await _supabaseClient.from("profiles").insert(model.toJson());
   }
 
+  // Get profile with return model
   Future<ProfileModel?> getProfile({required String userId}) async {
     final Map? profile =
         await _supabaseClient
@@ -31,6 +33,7 @@ class RemoteDatabaseService {
     return null;
   }
 
+  // update profile ex: phone, address
   Future<void> updateProfile({
     required UpdateProfileModel profileModel,
     required String userId,
@@ -41,6 +44,7 @@ class RemoteDatabaseService {
         .eq('user_id', userId);
   }
 
+  // Update Photo
   Future<void> updatePhotoPath({
     required String userId,
     required String path,

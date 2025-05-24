@@ -25,8 +25,6 @@ class ProfileServices {
   /// and updates the profile associated with the current user's ID.
   ///
   /// Throws an error if the update operation fails.
-
-  /*******  132beccc-6d4a-445d-a82c-f22dad36872c  *******/
   Future<void> updateProfile({required UpdateProfileModel profileModel}) async {
     return await remoteDatabaseService.updateProfile(
       profileModel: profileModel,
@@ -34,6 +32,16 @@ class ProfileServices {
     );
   }
 
+  /*************  ✨ Windsurf Command ⭐  *************/
+  /// Uploads a new image to the remote storage and updates the associated user profile.
+  ///
+  /// Takes a [String] containing the ID of the user profile to update, and a [File]
+  /// containing the image data to upload.
+  ///
+  /// Returns a [Future] which completes when the image has been successfully uploaded
+  /// and the user profile has been updated.
+  ///
+  /// Throws an error if the upload or update operations fail.
   Future<void> uploadNewImage({required String uid, required File file}) async {
     final String publicPath = await remoteStorageService.uploadNewImage(
       uid: uid,
