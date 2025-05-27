@@ -19,6 +19,7 @@ class DetailNewsController extends GetxController {
   final String _userId = Get.find<ProfileController>().profileModel.userId;
   final RxBool _isLoading = false.obs;
   final RxBool _isSaved = false.obs;
+  final RxBool _isShowBottomSheet = true.obs;
   final Rxn<String> _errorMessage = Rxn<String>();
   final SavedNewsController _savedNewsController = Get.find();
   DetailNewsController({required NewsServices newsServices})
@@ -28,6 +29,7 @@ class DetailNewsController extends GetxController {
   String get urlWebview => _urlWebView.value;
   bool get isLoading => _isLoading.value;
   bool get isSaved => _isSaved.value;
+  bool get isShowBottomSheet => _isShowBottomSheet.value;
 
   void setProgress({required double value}) => _progress.value = value;
 
@@ -146,5 +148,10 @@ class DetailNewsController extends GetxController {
         await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
       },
     );
+  }
+
+  Future<void> setIsShowBottomSheet({required bool value}) async {
+    if (value == _isShowBottomSheet.value) return;
+    _isShowBottomSheet.value = value;
   }
 }

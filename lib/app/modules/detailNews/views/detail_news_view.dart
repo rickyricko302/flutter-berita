@@ -59,6 +59,9 @@ class DetailNewsView extends GetView<DetailNewsController> {
                 onProgressChanged: (controllerWebview, progress) {
                   controller.setProgress(value: progress / 100);
                 },
+                onScrollChanged: (controllerWebview, x, y) {
+                  controller.setIsShowBottomSheet(value: y < 10);
+                },
 
                 shouldOverrideUrlLoading: (
                   controllerWebview,
@@ -74,28 +77,30 @@ class DetailNewsView extends GetView<DetailNewsController> {
         ),
       ),
       // Tombol navigasi
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Obx(
-              () =>
-                  controller.isLoading
-                      ? CircularProgressIndicator()
-                      : IconButton(
-                        icon: HugeIcon(
-                          icon:
-                              controller.isSaved
-                                  ? HugeIcons.strokeRoundedBookmarkRemove01
-                                  : HugeIcons.strokeRoundedBookmarkAdd01,
-                          color: primaryColor(context: context),
-                        ),
-                        onPressed: () {
-                          controller.toggleSaveStatus();
-                        },
-                      ),
-            ),
-          ],
+      bottomNavigationBar: Obx(
+        () => AnimatedContainer(
+          duration: Duration(milliseconds: 500),
+          padding: EdgeInsets.symmetric(vertical: 12),
+          height: controller.isShowBottomSheet ? 60 : 0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              controller.isLoading
+                  ? CircularProgressIndicator()
+                  : IconButton(
+                    icon: HugeIcon(
+                      icon:
+                          controller.isSaved
+                              ? HugeIcons.strokeRoundedBookmarkRemove01
+                              : HugeIcons.strokeRoundedBookmarkAdd01,
+                      color: primaryColor(context: context),
+                    ),
+                    onPressed: () {
+                      controller.toggleSaveStatus();
+                    },
+                  ),
+            ],
+          ),
         ),
       ),
     );
