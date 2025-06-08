@@ -6,6 +6,7 @@ import 'package:info_a1/app/data/services/remote_database_service.dart';
 
 import '../model/add_saved_news_model.dart';
 import '../model/saved_news_model.dart';
+import '../model/video_news_model.dart';
 
 class NewsServices {
   final RemoteDatabaseService _remoteDatabaseService;
@@ -83,5 +84,15 @@ class NewsServices {
   /// will throw an exception with the error message as the message.
   Future<List<SavedNewsModel>> getSavedNewsByUserId(String userId) async {
     return await _remoteDatabaseService.getSavedNewsByUserId(userId);
+  }
+
+  /// Get all video news from the database.
+  ///
+  /// This method will make a request to the remote database to get all video
+  /// news. If the request is successful, it will return a list of
+  /// [VideoNewsModel] objects. If the request failed, it will throw an
+  /// exception with the error message as the message.
+  Future<List<VideoNewsModel>> getVideoNews() async {
+    return await _remoteDatabaseService.getVideoNews();
   }
 }

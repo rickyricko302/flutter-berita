@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/videoNews/bindings/video_news_binding.dart';
+import '../modules/videoNews/views/video_news_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/detailNews/bindings/detail_news_binding.dart';
@@ -64,6 +66,11 @@ class AppPages {
       name: _Paths.SAVED_NEWS,
       page: () => const SavedNewsView(),
       binding: SavedNewsBinding(),
+    ),
+    GetPage(
+      name: _Paths.VIDEO_NEWS,
+      page: () => const VideoNewsView(),
+      binding: VideoNewsBinding(),
     ),
   ];
 }

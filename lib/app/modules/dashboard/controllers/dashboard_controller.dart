@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:info_a1/app/modules/videoNews/controllers/video_news_controller.dart';
 import 'package:info_a1/app/modules/home/controllers/home_controller.dart';
 import 'package:info_a1/app/modules/profile/controllers/profile_controller.dart';
 import 'package:info_a1/app/modules/savedNews/controllers/saved_news_controller.dart';
@@ -8,7 +9,9 @@ class DashboardController extends GetxController {
   final PageController pageController = PageController();
   final _indexActive = 0.obs;
 
-  get getIndexActive => _indexActive.value;
+  int get getIndexActive => _indexActive.value;
+
+  bool get videoFullscreen => Get.find<VideoNewsController>().isFullScreen;
 
   void changeIndexActive({required int index}) {
     _indexActive.value = index;
@@ -28,6 +31,7 @@ class DashboardController extends GetxController {
     Get.put(
       SavedNewsController(authServices: Get.find(), newsServices: Get.find()),
     );
+    Get.put(VideoNewsController());
     super.onInit();
   }
 

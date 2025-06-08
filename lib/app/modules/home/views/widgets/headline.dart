@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get/utils.dart';
 import 'package:info_a1/app/data/model/news_model.dart';
 import 'package:info_a1/app/routes/app_pages.dart';
 

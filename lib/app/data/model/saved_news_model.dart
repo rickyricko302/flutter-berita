@@ -25,7 +25,10 @@ class SavedNewsModel {
       title: json['title'],
       image: json['image'],
       description: json['description'],
-      createdAt: DateTime.parse(json['created_at']),
+      createdAt:
+          json['created_at'] == null
+              ? DateTime.now()
+              : DateTime.parse(json['created_at']),
     );
   }
 

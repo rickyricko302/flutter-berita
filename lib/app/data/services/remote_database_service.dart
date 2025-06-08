@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:info_a1/app/data/model/add_saved_news_model.dart';
 import 'package:info_a1/app/data/model/update_profile_model.dart';
+import 'package:info_a1/app/data/model/video_news_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../model/profile_model.dart';
@@ -72,7 +73,6 @@ class RemoteDatabaseService {
           .select()
           .eq('user_id', userId)
           .order('created_at', ascending: false);
-
       return (response as List)
           .map((item) => SavedNewsModel.fromJson(item))
           .toList();
@@ -104,6 +104,20 @@ class RemoteDatabaseService {
       return (response as List).isNotEmpty;
     } catch (e) {
       throw Exception('Failed to check saved news: $e');
+    }
+  }
+
+  // get video news
+  // Get all saved news by user ID
+  Future<List<VideoNewsModel>> getVideoNews() async {
+    try {
+      final response = await _supabaseClient.from("youtube").select();
+      print(response.toString());
+      return (response as List)
+          .map((item) => VideoNewsModel.fromJson(item))
+          .toList();
+    } catch (e) {
+      throw Exception('Failed to get video news: $e');
     }
   }
 }

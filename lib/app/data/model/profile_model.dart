@@ -17,7 +17,10 @@ class ProfileModel {
     return ProfileModel(
       userId: json['user_id'],
       name: json['name'],
-      photoPath: json['photo_path'] + "?v=${DateTime.timestamp()}",
+      photoPath:
+          json['photo_path'] != null
+              ? json['photo_path'] + "?v=${DateTime.timestamp()}"
+              : null,
       phone: json['phone'],
       address: json['address'],
     );
