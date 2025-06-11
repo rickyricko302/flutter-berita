@@ -13,6 +13,7 @@ class ProfileView extends GetView<ProfileController> {
   const ProfileView({super.key});
   @override
   Widget build(BuildContext context) {
+    controller.getProfile();
     return Scaffold(
       backgroundColor: primaryColor(context: context),
       appBar: AppBar(
@@ -23,7 +24,7 @@ class ProfileView extends GetView<ProfileController> {
       body: Obx(
         () =>
             controller.isLoading
-                ? Center(child: CircularProgressIndicator())
+                ? Center(child: CircularProgressIndicator(color: Colors.white))
                 : RefreshIndicator(
                   onRefresh: () async {
                     await controller.getProfile();
@@ -44,7 +45,7 @@ class ProfileView extends GetView<ProfileController> {
                                 CircleAvatar(
                                   radius: 70,
                                   backgroundImage: NetworkImage(
-                                    controller.profileModel.photoPath ??
+                                    controller.profileModel?.photoPath ??
                                         "https://avatar.iran.liara.run/public/1",
                                   ),
                                 ),

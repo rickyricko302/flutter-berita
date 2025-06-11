@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:info_a1/app/data/model/news_model.dart';
+import 'package:info_a1/app/data/model/headlines_news_model.dart';
 import 'package:info_a1/app/data/services/auth_services.dart';
 import 'package:info_a1/app/data/services/news_services.dart';
 import 'package:info_a1/core/util.dart';
@@ -8,32 +8,25 @@ class HomeController extends GetxController {
   final AuthServices authServices;
   final NewsServices newsServices;
   final List<String> categories = [
-    "politik",
-    "hukum",
-    "ekonomi",
-    "metro",
-    "sepakbola",
-    "olahraga",
-    "humaniora",
-    "lifestyle",
-    "hiburan",
-    "dunia",
-    "infografik",
-    "tekno",
-    "otomotif",
-    "warta-bumi",
-    "rilis-pers",
+    "business",
+    "entertainment",
+    "general",
+    "health",
+    "science",
+    "sports",
+    "technology",
+    "sources",
   ];
 
-  final Rxn<NewsModel> _headlineNews = Rxn<NewsModel>();
-  final Rxn<NewsModel> _listCategoryNews = Rxn<NewsModel>();
+  final Rxn<HeadlinesNewsModel> _headlineNews = Rxn<HeadlinesNewsModel>();
+  final Rxn<HeadlinesNewsModel> _listCategoryNews = Rxn<HeadlinesNewsModel>();
   final RxBool _isLoading = false.obs;
   final RxBool _isLoadingBottom = false.obs;
   final RxInt _categoryActive = 0.obs;
 
   int get getCategoryActive => _categoryActive.value;
-  NewsModel? get headlineNews => _headlineNews.value;
-  NewsModel? get listCategoryNews => _listCategoryNews.value;
+  HeadlinesNewsModel? get headlineNews => _headlineNews.value;
+  HeadlinesNewsModel? get listCategoryNews => _listCategoryNews.value;
   bool get isLoading => _isLoading.value;
   bool get isLoadingBottom => _isLoadingBottom.value;
 

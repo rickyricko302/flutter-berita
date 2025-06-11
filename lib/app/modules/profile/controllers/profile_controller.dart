@@ -24,7 +24,7 @@ class ProfileController extends GetxController {
 
   bool get isLoading => _isLoading.value;
   bool get isLoadingUpdate => _isLoadingUpdate.value;
-  ProfileModel get profileModel => _profileModel.value!;
+  ProfileModel? get profileModel => _profileModel.value;
 
   ProfileController({
     required this.authServices,
@@ -44,10 +44,12 @@ class ProfileController extends GetxController {
       _profileModel.value = await authServices.getProfile(
         userId: authServices.uid!,
       );
-      nameController.value = TextEditingValue(text: profileModel.name);
-      phoneController.value = TextEditingValue(text: profileModel.phone ?? "-");
+      nameController.value = TextEditingValue(text: profileModel?.name ?? '');
+      phoneController.value = TextEditingValue(
+        text: profileModel?.phone ?? "-",
+      );
       addressController.value = TextEditingValue(
-        text: profileModel.address ?? "-",
+        text: profileModel?.address ?? "-",
       );
     } on SocketException {
       showSnackbarError("Gagal", "Jaringan internet Anda terputus");

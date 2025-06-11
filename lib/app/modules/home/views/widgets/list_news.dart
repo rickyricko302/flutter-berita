@@ -1,15 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get/utils.dart';
-import 'package:info_a1/app/data/model/news_model.dart';
 import 'package:info_a1/app/routes/app_pages.dart';
 
 import '../../../../../core/util.dart';
+import '../../../../data/model/headlines_news_model.dart';
 
 class ListNews extends StatelessWidget {
   const ListNews({super.key, required this.listNews, required this.isLoading});
-  final NewsModel? listNews;
+  final HeadlinesNewsModel? listNews;
   final bool isLoading;
   @override
   Widget build(BuildContext context) {
@@ -24,17 +25,17 @@ class ListNews extends StatelessWidget {
             ListView.separated(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: listNews?.total ?? 0,
+              itemCount: listNews?.articles?.length ?? 0,
               separatorBuilder: (context, index) => SizedBox(height: 8),
               itemBuilder:
                   (context, index) => Material(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.surface,
                     borderRadius: BorderRadius.circular(12),
                     child: InkWell(
                       onTap: () {
                         Get.toNamed(
                           Routes.DETAIL_NEWS,
-                          arguments: {'news_model': listNews?.data?[index]},
+                          arguments: {'news_model': listNews?.articles?[index]},
                         );
                       },
                       borderRadius: BorderRadius.circular(12),
@@ -45,8 +46,10 @@ class ListNews extends StatelessWidget {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(6),
-                              child: Image.network(
-                                listNews?.data?[index].image ?? '-',
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    listNews?.articles?[index].urlToImage ??
+                                    '-',
                                 width: 90,
                                 height: 90,
                                 fit: BoxFit.cover,
@@ -58,12 +61,12 @@ class ListNews extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    listNews?.data?[index].title ?? '-',
+                                    listNews?.articles?[index].title ?? '-',
                                     style: titleLarge(context: context),
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                  Text(listNews?.data?[index].time ?? '-'),
+                                  Text(listNews?.articles?[index].time ?? '-'),
                                 ],
                               ),
                             ),

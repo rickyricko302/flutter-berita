@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:info_a1/app/data/model/saved_news_model.dart';
+import 'package:info_a1/app/data/model/headlines_news_model.dart';
 import 'package:info_a1/app/data/services/auth_services.dart';
 import 'package:info_a1/app/data/services/news_services.dart';
 import 'package:info_a1/core/util.dart';
@@ -8,10 +8,10 @@ class SavedNewsController extends GetxController {
   final NewsServices _newsServices;
   final AuthServices _authServices;
   final RxBool _isLoading = false.obs;
-  final Rx<List<SavedNewsModel>> _savedNews = Rx<List<SavedNewsModel>>([]);
+  final Rx<List<Articles>> _savedNews = Rx<List<Articles>>([]);
 
   bool get isLoading => _isLoading.value;
-  List<SavedNewsModel> get savedNews => _savedNews.value;
+  List<Articles> get savedNews => _savedNews.value;
 
   SavedNewsController({
     required NewsServices newsServices,

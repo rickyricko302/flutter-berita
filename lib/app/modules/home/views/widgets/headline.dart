@@ -1,15 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:info_a1/app/data/model/news_model.dart';
-import 'package:info_a1/app/routes/app_pages.dart';
+import 'package:info_a1/app/data/model/headlines_news_model.dart';
 
 import '../../../../../core/util.dart';
+import '../../../../routes/app_pages.dart';
 
 class HeadLineWidget extends StatelessWidget {
   const HeadLineWidget({super.key, required this.headlineNews});
-  final NewsModel? headlineNews;
+  final HeadlinesNewsModel? headlineNews;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -31,22 +32,23 @@ class HeadLineWidget extends StatelessWidget {
                   onTap: () {
                     Get.toNamed(
                       Routes.DETAIL_NEWS,
-                      arguments: {'news_model': headlineNews?.data?[index]},
+                      arguments: {'news_model': headlineNews?.articles?[index]},
                     );
                   },
                   child: Container(
                     width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          headlineNews?.data?[index].image ?? '',
-                        ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    decoration: BoxDecoration(color: Colors.grey),
                     child: Stack(
                       children: [
+                        SizedBox(
+                          height: double.infinity,
+                          width: double.infinity,
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                headlineNews?.articles?[index].urlToImage ?? '',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                         Align(
                           alignment: Alignment.topRight,
                           child: Container(
@@ -61,7 +63,7 @@ class HeadLineWidget extends StatelessWidget {
                               ),
                             ),
                             child: Text(
-                              headlineNews?.data?[index].time ?? '-',
+                              headlineNews?.articles?[index].time ?? '-',
                               style: bodySmall(context: context)?.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -84,7 +86,7 @@ class HeadLineWidget extends StatelessWidget {
                               ),
                             ),
                             child: Text(
-                              headlineNews?.data?[index].title ?? '-',
+                              headlineNews?.articles?[index].title ?? '-',
                               style: titleLarge(
                                 context: context,
                               )?.copyWith(color: Colors.white),

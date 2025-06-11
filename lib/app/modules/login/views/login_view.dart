@@ -75,8 +75,8 @@ class LoginView extends GetView<LoginController> {
                               color: primaryColor(context: context),
                             ),
                           ),
-                          onPressed: () {
-                            controller.doGoogleLogin();
+                          onPressed: () async {
+                            await controller.doGoogleLogin();
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,

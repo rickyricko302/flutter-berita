@@ -1,6 +1,7 @@
+import 'dart:convert';
 import 'dart:developer';
 
-import 'package:info_a1/app/data/model/add_saved_news_model.dart';
+import 'package:info_a1/app/data/model/headlines_news_model.dart';
 import 'package:info_a1/app/data/model/update_profile_model.dart';
 import 'package:info_a1/app/data/model/video_news_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -57,36 +58,36 @@ class RemoteDatabaseService {
   }
 
   // Insert saved news
-  Future<void> insertSavedNews(AddSavedNewsModel news) async {
+  Future<void> insertSavedNews(String userId, Articles news) async {
     try {
-      await _supabaseClient.from("saved_news").insert(news.toJson());
+      // create new map to insert user_id on news.toJson
+      Map<String, dynamic> newsMap = news.toJson();
+      newsMap['user_id'] = userId;
+      await _supabaseClient.from("saved_news").insert(newsMap);
     } catch (e) {
       throw Exception('Failed to insert saved news: $e');
     }
   }
 
   // Get all saved news by user ID
-  Future<List<SavedNewsModel>> getSavedNewsByUserId(String userId) async {
+  Future<List<Articles>> getSavedNewsByUserId(String userId) async {
     try {
       final response = await _supabaseClient
           .from("saved_news")
           .select()
-          .eq('user_id', userId)
-          .order('created_at', ascending: false);
-      return (response as List)
-          .map((item) => SavedNewsModel.fromJson(item))
-          .toList();
+          .eq('user_id', userId);
+      return (response as List).map((item) => Articles.fromJson(item)).toList();
     } catch (e) {
       throw Exception('Failed to get saved news: $e');
     }
   }
 
   // Delete saved news by user ID and path
-  Future<void> deleteSavedNews(String userId, String pathNews) async {
+  Future<void> deleteSavedNews(String userId, String title) async {
     try {
       await _supabaseClient.from("saved_news").delete().match({
         'user_id': userId,
-        'path_news': pathNews,
+        'title': title,
       });
     } catch (e) {
       throw Exception('Failed to delete saved news: $e');
@@ -94,12 +95,12 @@ class RemoteDatabaseService {
   }
 
   // Check if a news is already saved by user
-  Future<bool> isNewsSaved(String userId, String pathNews) async {
+  Future<bool> isNewsSaved(String userId, String title) async {
     try {
       final response = await _supabaseClient
           .from("saved_news")
           .select('id')
-          .match({'user_id': userId, 'path_news': pathNews});
+          .match({'user_id': userId, 'title': title});
 
       return (response as List).isNotEmpty;
     } catch (e) {

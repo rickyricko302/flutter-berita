@@ -25,7 +25,7 @@ class DashboardView extends GetView<DashboardController> {
         () => Visibility(
           visible: !controller.videoFullscreen,
           child: SalomonBottomBar(
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             currentIndex: controller.getIndexActive,
             onTap: (index) => controller.changeIndexActive(index: index),
             items: [
@@ -41,7 +41,10 @@ class DashboardView extends GetView<DashboardController> {
                   icon: HugeIcons.strokeRoundedBookmark01,
                   color: primaryColor(context: context),
                 ),
-                title: Text("Tersimpan"),
+                title: Text(
+                  "Tersimpan",
+                  style: TextStyle(color: primaryColor(context: context)),
+                ),
               ),
               SalomonBottomBarItem(
                 icon: HugeIcon(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:gap/gap.dart';
 
 import 'package:get/get.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -13,10 +14,8 @@ class DetailNewsView extends GetView<DetailNewsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "WebView Antara News",
-          style: TextStyle(color: Colors.white),
-        ),
+        centerTitle: true,
+        title: Text("Detail Berita", style: TextStyle(color: Colors.white)),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(20),
@@ -32,74 +31,83 @@ class DetailNewsView extends GetView<DetailNewsController> {
           ),
         ),
       ),
-      body: Obx(
-        () => Column(
-          children: [
-            // Progress Bar
-            controller.progress < 1.0
-                ? LinearProgressIndicator(value: controller.progress)
-                : Container(),
-
-            // WebView
-            Expanded(
-              child: InAppWebView(
-                initialUrlRequest: URLRequest(
-                  url: WebUri.uri(Uri.parse(controller.urlWebview)),
-                ),
-                initialSettings: InAppWebViewSettings(),
-                onWebViewCreated: (controllerWebview) {
-                  controller.webViewController = controllerWebview;
-                },
-                onLoadStart: (controllerWebview, url) {
-                  controller.setUrl(url: url.toString());
-                },
-                onLoadStop: (controllerWebview, url) {
-                  controller.setUrl(url: url.toString());
-                },
-                onProgressChanged: (controllerWebview, progress) {
-                  controller.setProgress(value: progress / 100);
-                },
-                onScrollChanged: (controllerWebview, x, y) {
-                  controller.setIsShowBottomSheet(value: y < 10);
-                },
-
-                shouldOverrideUrlLoading: (
-                  controllerWebview,
-                  navigationAction,
-                ) async {
-                  return await controller.ensureUrlIsSame(
-                    url: navigationAction.request.url.toString(),
-                  );
-                },
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.network(controller.newsModel.urlToImage ?? ''),
               ),
-            ),
-          ],
+              Gap(8),
+              Text(
+                controller.newsModel.title ?? '',
+                style: titleLarge(context: context),
+              ),
+              Gap(8),
+              Row(
+                children: [
+                  HugeIcon(
+                    icon: HugeIcons.strokeRoundedUserGroup03,
+                    color: primaryColor(context: context),
+                  ),
+                  Gap(8),
+                  Text(
+                    'Author: ${controller.newsModel.author ?? ''}',
+                    style: labelLarge(context: context),
+                  ),
+                ],
+              ),
+              Gap(8),
+              Gap(8),
+              Text(
+                controller.newsModel.description ?? '',
+                style: bodyNormal(context: context),
+              ),
+              Gap(8),
+              Text(
+                controller.newsModel.content ?? '',
+                style: bodyNormal(context: context),
+              ),
+              Center(
+                child: TextButton(
+                  onPressed: () {
+                    controller.openUrl(controller.newsModel.url ?? '');
+                  },
+                  child: Text('Lihat berita selengkapnya disini'),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       // Tombol navigasi
       bottomNavigationBar: Obx(
-        () => AnimatedContainer(
-          duration: Duration(milliseconds: 500),
-          padding: EdgeInsets.symmetric(vertical: 12),
-          height: controller.isShowBottomSheet ? 60 : 0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              controller.isLoading
-                  ? CircularProgressIndicator()
-                  : IconButton(
-                    icon: HugeIcon(
-                      icon:
-                          controller.isSaved
-                              ? HugeIcons.strokeRoundedBookmarkRemove01
-                              : HugeIcons.strokeRoundedBookmarkAdd01,
-                      color: primaryColor(context: context),
+        () => BottomAppBar(
+          height: 60,
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 500),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                controller.isLoading
+                    ? CircularProgressIndicator()
+                    : IconButton(
+                      icon: HugeIcon(
+                        icon:
+                            controller.isSaved
+                                ? HugeIcons.strokeRoundedBookmarkRemove01
+                                : HugeIcons.strokeRoundedBookmarkAdd01,
+                        color: primaryColor(context: context),
+                      ),
+                      onPressed: () {
+                        controller.toggleSaveStatus();
+                      },
                     ),
-                    onPressed: () {
-                      controller.toggleSaveStatus();
-                    },
-                  ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
